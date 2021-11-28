@@ -25,6 +25,7 @@ const {
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = format.smoothing;
+const yaml = require('js-yaml');
 var metadataList = [];
 var attributesList = [];
 var dnaList = new Set();
@@ -40,6 +41,7 @@ const buildSetup = () => {
   fs.mkdirSync(buildDir);
   fs.mkdirSync(`${buildDir}/json`);
   fs.mkdirSync(`${buildDir}/images`);
+  fs.mkdirSync(`${buildDir}/vox-yaml`);
   if (gif.export) {
     fs.mkdirSync(`${buildDir}/gifs`);
   }
@@ -311,6 +313,26 @@ const saveMetaDataSingleFile = (_editionCount) => {
     `${buildDir}/json/${_editionCount}.json`,
     JSON.stringify(metadata, null, 2)
   );
+
+  //Export metadata for vox combination script
+  var voxURLs = metadata.attributes.map((a) => { return {name: `${a.trait_type}/${a.value}.vox`}});
+
+  var yamlOutput = {
+    output: `${metadata.edition}.vox`.toString(),
+    models: voxURLs,
+  }
+
+  fs.writeFileSync(
+    `${buildDir}/vox-yaml/${metadata.edition}.yaml`,
+    yaml.dump(yamlOutput, {
+      quotingType: '"',
+      forceQuotes: true,
+      styles: {
+        '!!int'  : 'hexadecimal',
+        '!!null' : 'camelcase'
+      }
+    }));
+
 };
 
 function shuffle(array) {

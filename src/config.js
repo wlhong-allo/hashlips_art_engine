@@ -5,8 +5,8 @@ const { NETWORK } = require(`${basePath}/constants/network.js`);
 const network = NETWORK.eth;
 
 // General metadata for Ethereum
-const namePrefix = "Your Collection";
-const description = "Remember to replace this description";
+const namePrefix = "Why Penguin";
+const description = "Why Penguin";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
@@ -22,22 +22,28 @@ const solanaMetadata = {
 };
 
 // If you have selected Solana then the collection starts from 0 automatically
+
+/* Layer config for Dazzling Penguin */
 const layerConfigurations = [
   {
-    growEditionSizeTo: 5,
+    growEditionSizeTo: 10,
     layersOrder: [
-      { name: "Background" },
-      { name: "Eyeball" },
-      { name: "Eye color" },
-      { name: "Iris" },
-      { name: "Shine" },
-      { name: "Bottom lid" },
-      { name: "Top lid" },
+      { name: "Bottom" },
+      { name: "Cheek" },
+      { name: "Ear" },
+      { name: "Eyes and Glasses" },
+      { name: "Head" },
+      { name: "Head Wear Special" },
+      { name: "Holding Part" },
+      { name: "Middle Part" },
+      { name: "Mouth" },
+      { name: "Tail" },
+      { name: "Wearings" },
     ],
   },
 ];
 
-const shuffleLayerConfigurations = false;
+const shuffleLayerConfigurations = true;
 
 const debugLogs = false;
 
